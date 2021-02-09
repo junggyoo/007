@@ -3,17 +3,21 @@ const lineY = document.querySelector('.lineY');
 const target = document.querySelector('.target');
 const coordinate = document.querySelector('.coordinate');
 
-window.addEventListener('mousemove', (e) => {
-  const x = e.clientX;
-  const y = e.clientY;
+addEventListener("load", () => {
+  const targetRect = target.getBoundingClientRect();
+  const targetHalfWidth = targetRect.width / 2;
+  const targetHalfHeight = targetRect.height / 2;
 
-  lineX.style.top = `${y}px`
-  lineY.style.left = `${x}px`
+  window.addEventListener("mousemove", (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
 
-  target.style.top = `${y}px`
-  target.style.left = `${x}px`
-
-  coordinate.style.top = `${y}px`
-  coordinate.style.left = `${x}px`
-  coordinate.innerHTML = `${x}px, ${y}px`
+    lineX.style.transform = `translateY(${y}px)`;
+    lineY.style.transform = `translateX(${x}px)`;
+    target.style.transform = `translate(${x - targetHalfWidth}px, ${
+      y - targetHalfHeight
+    }px)`;
+    coordinate.style.transform = `translate(${x}px, ${y}px)`;
+    coordinate.innerHTML = `${x}px, ${y}px`;
+  });
 });
